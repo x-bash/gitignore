@@ -1,7 +1,7 @@
 #! /usr/bin/env bash
 
 git remote add -f srcrepo https://github.com/github/gitignore
-git subtree add --prefix _v0 srcrepo master --squash
+git subtree add --prefix _v0/srcrepo srcrepo master --squash
 
 
 
