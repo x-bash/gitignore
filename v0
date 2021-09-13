@@ -7,7 +7,7 @@ gitignore(){
         return
     fi
 
-    if [ "$1" = "_x_cmd_adivse_json" ]; then
+    if [ "$1" = "_x_cmd_advise_json" ]; then
         cat <<A
 {
     "#1": "gitignore"
@@ -20,7 +20,7 @@ A
 }
 
 ___gitignore_list(){
-    xrc cat gitignore/_v0/index
+    xrc cat gitignore/_v0/index | awk '{ print $1; }'
 }
 
 
@@ -46,3 +46,8 @@ ___gitignore_get(){
 
     xrc cat "gitignore/_v0/srcrepo/$t.gitignore"
 }
+
+if [ -z "$XRC_NO_ADVISE" ] && [ -n "${BASH_VERSION}${ZSH_VERSION}" ] && [ "${-#*i}" != "$-" ]; then
+    xrc advise/v0
+    advise gitignore
+fi
