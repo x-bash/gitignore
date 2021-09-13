@@ -3,7 +3,7 @@
 
 gitignore(){
     if [ "$#" -eq 0 ]; then
-        ___gitignore_list
+        ___gitignore_ls
         return
     fi
 
@@ -11,7 +11,9 @@ gitignore(){
     case "$op" in
         _x_cmd_advise_json) cat <<A
 {
-    "#1": "gitignore"
+    "#1": "gitignore",
+    "cat": "gitignore",
+    "init": "gitignore"
 }
 A
         return 126 ;;
@@ -20,8 +22,6 @@ A
         init)   ___gitignore_cat "$1" >"${2:-.gitignore}" ;;
         *)      gitignore init "$@" ;;
     esac
-
-    ___gitignore_get "$1"
 }
 
 ___gitignore_ls(){
