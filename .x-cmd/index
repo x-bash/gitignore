@@ -1,0 +1,13 @@
+#! /usr/bin/env bash
+
+{
+    ls _v0/srcrepo/*.gitignore
+    ls _v0/srcrepo/**/*.gitignore
+} | while read -r l; do
+    l="${l#_v0/srcrepo/}";
+    l="${l%.gitignore}";
+    ll="$(printf "%s" "$l" | tr '[:upper:]' '[:lower:]')"
+    printf "%s %s %s\n" "${ll#*/}" "$ll" "$l"
+done | tee _v0/index
+
+

@@ -2,7 +2,7 @@
 
 
 gitignore(){
-
+    :
 }
 
 ___gitignore_x_cmd_advise_json(){
@@ -14,12 +14,29 @@ A
 }
 
 ___gitignore_list(){
-    :
+    xrc cat gitignore/_v0/index
 }
 
 
 ___gitignore_get(){
-    :
+    local target="${1:?Provide target name}"
+    target="$(printf "%s" "$target" | tr "[:upper:]" "[:lower:]")"
+
+    local t
+    t="$(awk -v target="$target" '
+{
+    if ($1==target) {
+        print $3
+        exit(0)
+    }
+
+    if ($2==target) {
+        print $3
+        exit(0)
+    }
 }
+' <"$(xrc which "gitignore/_v0/index")"
+)"
 
-
+    xrc cat "gitignore/_v0/srcrepo/$t.gitignore"
+}
