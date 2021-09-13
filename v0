@@ -2,15 +2,21 @@
 
 
 gitignore(){
-    :
-}
+    if [ "$#" -eq 0 ]; then
+        ___gitignore_list
+        return
+    fi
 
-___gitignore_x_cmd_advise_json(){
-    cat <<A
+    if [ "$1" = "_x_cmd_adivse_json" ]; then
+        cat <<A
 {
-    "#1": "xrc cat gitignore/v0.index"
+    "#1": "gitignore"
 }
 A
+        return 126
+    fi
+
+    ___gitignore_get "$1"
 }
 
 ___gitignore_list(){
