@@ -1,0 +1,25 @@
+# shellcheck shell=sh disable=SC3043
+
+
+gitignore(){
+
+}
+
+___gitignore_x_cmd_advise_json(){
+    cat <<A
+{
+    "#1": "xrc cat gitignore/v0.index"
+}
+A
+}
+
+___gitignore_list(){
+    :
+}
+
+
+___gitignore_get(){
+    :
+}
+
+
