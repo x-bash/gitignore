@@ -7,22 +7,33 @@ gitignore(){
         return
     fi
 
-    if [ "$1" = "_x_cmd_advise_json" ]; then
-        cat <<A
+    local op="$1"; shift
+    case "$op" in
+        _x_cmd_advise_json) cat <<A
 {
     "#1": "gitignore"
 }
 A
-        return 126
-    fi
+        return 126 ;;
+        cat)    ___gitignore_cat "$@" ;;
+        ls)     ___gitignore_ls ;;
+        init)   ___gitignore_cat "$1" >"${2:-.gitignore}" ;;
+        *)      gitignore init "$@" ;;
+    esac
 
     ___gitignore_get "$1"
 }
 
-___gitignore_list(){
+___gitignore_ls(){
     xrc cat gitignore/_v0/index | awk '{ print $1; }'
 }
 
+___gitignore_cat(){
+    local t
+    if t=$(___gitignore_get "$1"); then
+        xrc cat "gitignore/_v0/srcrepo/$t.gitignore"
+    fi
+}
 
 ___gitignore_get(){
     local target="${1:?Provide target name}"
@@ -44,7 +55,7 @@ ___gitignore_get(){
 ' <"$(xrc which "gitignore/_v0/index")"
 )"
 
-    xrc cat "gitignore/_v0/srcrepo/$t.gitignore"
+    [ -n "$t" ]
 }
 
 if [ -z "$XRC_NO_ADVISE" ] && [ -n "${BASH_VERSION}${ZSH_VERSION}" ] && [ "${-#*i}" != "$-" ]; then
