@@ -11,17 +11,16 @@ gitignore(){
     case "$op" in
         _x_cmd_advise_json) cat <<A
 {
-    "#1": "gitignore",
-    "cat": "gitignore",
-    "init": "gitignore",
-    "ls": "gitignore"
+    "cat": "gitignore ls",
+    "init": "gitignore ls",
+    "ls": null
 }
 A
         return 126 ;;
         cat)    ___gitignore_cat "$@" ;;
         ls)     ___gitignore_ls ;;
         init)   ___gitignore_cat "$1" >"${2:-.gitignore}" ;;
-        *)      gitignore init "$@" ;;
+        *)      printf "%s" "subcommand accept only cat, ls, init" >&2; # gitignore init "$@" ;;
     esac
 }
 
